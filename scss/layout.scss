@@ -1,0 +1,89 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+li {
+  list-style: none;
+}
+
+$primary-color: #c91846;
+$primary-hover: #a91339;
+
+$text-color: #24262b;
+$text-muted: #737780;
+
+$white: #ffffff;
+$background-color: #ffffff;
+$surface-color: #f5f5f3;
+
+$light-grey: #eceef0;
+$dark-gray: #a6abb1;
+$border-color: #dadde0;
+
+$accent-color: #6ab8b5;
+
+$container-maxwidth: 1200px;
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@mixin background-cover {
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: cover;
+}
+@mixin long-shadow {
+  $shadow: "";
+  @for $i from 1 through 50 {
+    @if $i == 1 {
+      $shadow:
+        #{$1}px,
+        #{$1}px,
+        #fff;
+    } @else {
+      $shadow: "#{$shadow},#{$i}px #{$i}px #000";
+    }
+  }
+  text-shadow: #{$shadow};
+}
+.center {
+  @include flex-center();
+  @include background-cover();
+}
+%button-base {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn-product {
+  @extend %button-base;
+  background-color: $primary-color;
+  color: #fff;
+}
+.header {
+  position: fixed;
+  width: 100px;
+  background-color: rgba(255, 255, 255, 0.5);
+  .logo {
+    position: absolute;
+    left: 50px;
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img {
+        width: 120px;
+      }
+    }
+  }
+}
+button:hover {
+  background-color: $primary-color;
+}

@@ -1,0 +1,57 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+li {
+  list-style: none;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: cover;
+}
+
+.btn-product {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-product {
+  background-color: #c91846;
+  color: #fff;
+}
+
+.header {
+  position: fixed;
+  width: 100px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+.header .logo {
+  position: absolute;
+  left: 50px;
+}
+.header .logo a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.header .logo a img {
+  width: 120px;
+}
+
+button:hover {
+  background-color: #c91846;
+}
