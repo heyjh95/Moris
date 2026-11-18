@@ -170,7 +170,12 @@ hr {
 body {
   font-family: "Pretendard", sans-serif;
 }
-body .header {
+
+main {
+  padding-top: 100px;
+}
+
+.header {
   position: fixed;
   z-index: 99;
   width: 100%;
@@ -182,39 +187,138 @@ body .header {
   justify-content: center;
   align-items: center;
 }
-body .header .logo {
+.header .logo {
   position: absolute;
   left: 50px;
 }
-body .header .logo a {
+.header .logo a {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-body .header .logo a img {
+.header .logo a img {
   width: 126px;
   height: 35px;
 }
-body .gnb .ul {
+
+.gnb .ul {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-body .gnb .ul li a {
+.gnb .ul li a {
   padding: 0 40px;
   font-size: 18px;
   font-weight: 500;
+  white-space: nowrap;
+  transition: 0.3s;
+}
+.gnb .ul li a:hover {
+  color: #c91846;
+}
+
+.main-visual {
+  width: 100%;
+  height: calc(100vh - 100px);
+  overflow: hidden;
+}
+.main-visual .visual-list {
+  height: 100%;
+}
+.main-visual .visual-list .swiper-slide {
+  height: 100%;
+}
+.main-visual .visual-list .swiper-slide a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.main-visual .visual-list .swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.floating {
+  display: flex;
+  position: fixed;
+  top: 118px;
+  right: 16px;
+  z-index: 100;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 5px;
+}
+.floating .floatx-btn {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
-.main-visual {
-  overflow: hidden;
-}
-.main-visual .visual-list img {
+.floating .floatx-btn img {
+  display: block;
   width: 100%;
-  height: 100vh;
-  -o-object-fit: cover;
-     object-fit: cover;
+  height: 100%;
+}
+
+.popup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 240px;
+  height: 240px;
+  padding: 33px;
+  color: #fff;
+  background-color: #242424;
+  border-radius: 50%;
+}
+.popup .popup-logo {
+  display: block;
+  width: 92px;
+  height: auto;
+}
+.popup .popup-content {
+  width: 100%;
+  max-width: 160px;
+}
+
+.popup-store {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10px;
+  padding-bottom: 14px;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #fff;
+  border-bottom: 1px solid #666;
+}
+.popup-store:hover {
+  color: #6ab8b5;
+}
+
+.popup-inquiry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding-top: 14px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #ddd;
+}
+.popup-inquiry:hover {
+  color: #6ab8b5;
+}
+.popup-inquiry .arrow {
+  font-size: 24px;
 }

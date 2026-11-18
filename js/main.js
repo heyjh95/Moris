@@ -10,3 +10,12 @@ const mainSwiper = new Swiper(".main-visual", {
 
   grabCursor: true,
 });
+// 플로팅 팝업 닫기
+const floating = document.querySelector(".floating");
+const closeBtn = document.querySelector(".floatx-btn");
+
+if (floating && closeBtn) {
+  closeBtn.addEventListener("click", () => {
+    floating.style.display = "none";
+  });
+}

@@ -2,50 +2,176 @@
 @use "mixins" as *;
 @use "vars" as *;
 @use "reset" as *;
+// ========================================
+// 1. 기본 설정
+// ========================================
 body {
   font-family: "Pretendard", sans-serif;
-  .header {
-    position: fixed;
-    z-index: 99;
-    width: 100%;
-    height: 100px;
-    background-color: rgba(255, 255, 255, 0.5);
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(20px);
-    @include flex-center;
-    .logo {
-      position: absolute;
-      left: 50px;
-      a {
-        @include flex-center;
-        img {
-          width: 126px;
-          height: 35px;
-        }
+}
+main {
+  padding-top: 100px;
+}
+// ========================================
+// 2. 헤더
+// ========================================
+.header {
+  position: fixed;
+  z-index: 99;
+  width: 100%;
+  height: 100px;
+  background-color: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+  @include flex-center;
+  //로고
+  .logo {
+    position: absolute;
+    left: 50px;
+    a {
+      @include flex-center;
+      img {
+        width: 126px;
+        height: 35px;
       }
     }
   }
-  .gnb {
-    .ul {
-      @include flex-center;
-      li {
-        a {
-          padding: 0 40px;
-          font-size: 18px;
-          font-weight: 500;
-          @include flex-center;
+}
+// 중앙 네비게이션
+.gnb {
+  .ul {
+    @include flex-center;
+    li {
+      a {
+        padding: 0 40px;
+        font-size: 18px;
+        font-weight: 500;
+        white-space: nowrap;
+        transition: 0.3s;
+        &:hover {
+          color: $primary-color;
         }
       }
     }
   }
 }
+// ========================================
+// 3. 메인 비주얼 (Swiper)
+// ========================================
 .main-visual {
+  width: 100%;
+  height: calc(100vh - 100px);
   overflow: hidden;
+
   .visual-list {
-    img {
-      width: 100%;
-      height: 100vh;
-      object-fit: cover;
+    height: 100%;
+
+    .swiper-slide {
+      height: 100%;
+      a {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
+  }
+}
+// ========================================
+// 4. 오른쪽 플로팅 팝업
+// ========================================
+.floating {
+  display: flex;
+  position: fixed;
+  top: 118px;
+  right: 16px;
+  z-index: 100;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 5px;
+  // 닫기 버튼
+  .floatx-btn {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    cursor: pointer;
+    @include flex-center;
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+// 검정 원형 팝업
+.popup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 240px;
+  height: 240px;
+  padding: 33px;
+  color: #fff;
+  background-color: #242424;
+  border-radius: 50%;
+
+  // 팝업 로고
+  .popup-logo {
+    display: block;
+    width: 92px;
+    height: auto;
+  }
+  // 팝업 내용
+  .popup-content {
+    width: 100%;
+    max-width: 160px;
+  }
+}
+
+// 온라인 스토어
+.popup-store {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 10px;
+
+  padding-bottom: 14px;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.4;
+
+  color: #fff;
+  border-bottom: 1px solid #666;
+
+  &:hover {
+    color: $accent-color;
+  }
+}
+
+// 대량 구매 문의
+.popup-inquiry {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+
+  padding-top: 14px;
+  font-size: 15px;
+  font-weight: 500;
+
+  color: #ddd;
+
+  &:hover {
+    color: $accent-color;
+  }
+  .arrow {
+    font-size: 24px;
   }
 }
