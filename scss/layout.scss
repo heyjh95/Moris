@@ -8,12 +8,16 @@
 body {
   font-family: "Pretendard", sans-serif;
 }
-
+main {
+  padding-top: 0;
+}
 // ========================================
 // 2. 헤더
 // ========================================
 .header {
   position: fixed;
+  top: 0;
+  left: 0;
   z-index: 99;
   width: 100%;
   height: 100px;
@@ -59,7 +63,7 @@ body {
   position: relative;
   width: 100%;
   height: 100vh;
-  overflow: hidden;
+  // overflow: hidden;//
 
   .visual-list {
     height: 100%;
@@ -81,7 +85,146 @@ body {
       }
     }
   }
+  .pagination {
+    display: grid;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    z-index: 10;
+    align-items: end;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+
+    width: min(1200px, calc(100% - 40px));
+    transform: translateX(-50%);
+
+    .swiper-pagination-bullet {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+
+      width: 100%;
+      height: 120px;
+      overflow: hidden;
+      margin: 0;
+      padding: 12px;
+
+      text-align: left;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.35);
+      border-bottom: 3px solid transparent;
+      border-radius: 0;
+      opacity: 1;
+      transition:
+        height 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+        background-color 0.25s ease-out,
+        border-color 0.25s ease-out;
+
+      &:not(.swiper-pagination-bullet-active) {
+        justify-content: flex-end;
+      }
+      .no {
+        font-size: 16px;
+        font-weight: 700;
+      }
+
+      .title {
+        flex-shrink: 0;
+        margin-top: 8px;
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 1.3;
+      }
+
+      .desc {
+        flex-shrink: 0;
+        min-height: 0;
+        max-height: 0;
+        margin-top: 0;
+
+        font-size: 16px;
+        line-height: 1.7;
+
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(15px);
+
+        transition:
+          max-height 0.55s ease-out,
+          margin-top 0.55s ease-out,
+          opacity 0.4s ease-out,
+          transform 0.55s ease-out,
+          visibility 0.55s;
+        @include ellipsis(4);
+      }
+
+      .btn {
+        display: inline-flex;
+        flex-shrink: 0;
+        align-items: center;
+        align-self: flex-start;
+
+        max-height: 0;
+        overflow: hidden;
+        margin-top: 0;
+        padding: 0 20px;
+
+        font-size: 20px;
+        color: #fff;
+        border: 0 solid transparent;
+        border-radius: 100px;
+
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(15px);
+
+        transition:
+          max-height 0.55s ease-out,
+          margin-top 0.55s ease-out,
+          padding 0.55s ease-out,
+          opacity 0.4s ease-out,
+          transform 0.55s ease-out,
+          visibility 0.55s,
+          background-color 0.3s;
+        @include button-base;
+
+        &:hover {
+          color: $text-color;
+          background-color: #fff;
+        }
+      }
+      // 활성화
+      &-active {
+        justify-content: flex-start; // 활성 상태에서는 위쪽부터 정렬
+        height: 270px;
+        background: rgba(0, 0, 0, 0.65);
+        border-bottom: 3px solid $primary-color;
+        opacity: 1;
+        border-bottom-color: $primary-color;
+
+        .desc {
+          max-height: 80px;
+          margin-top: 10px;
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+        }
+
+        .btn {
+          max-height: 55px;
+          margin-top: 14px;
+          padding: 6px 20px;
+          border: 2px solid #fff;
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+        }
+      }
+    }
+  }
 }
+
 // ========================================
 // 4. 오른쪽 플로팅 팝업
 // ========================================
