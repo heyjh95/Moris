@@ -4,9 +4,9 @@
 
 ## 자료 목차
 
-1. [HTML 전체 줄별 해설](./01_html_line_by_line.md) — `html/index.html` 193줄, 메타데이터·시맨틱 구조·Swiper 마크업.
-2. [SCSS 전체 줄별 해설](./02_scss_line_by_line.md) — `scss/layout.scss` 522줄, 선택자 중첩·배치·전환·상품 갤러리.
-3. [JavaScript 전체 줄별 해설](./03_js_line_by_line.md) — `js/main.js` 89줄, 배열·템플릿 리터럴·Swiper 생성·이벤트.
+1. [HTML 전체 줄별 해설](./01_html_line_by_line.md) — `html/index.html` 192줄, 메타데이터·시맨틱 구조·Swiper 마크업.
+2. [SCSS 전체 줄별 해설](./02_scss_line_by_line.md) — `scss/layout.scss` 521줄, 선택자 중첩·배치·전환·상품 갤러리.
+3. [JavaScript 전체 줄별 해설](./03_js_line_by_line.md) — `js/main.js` 88줄, 배열·템플릿 리터럴·Swiper 생성·이벤트.
 4. [변수와 믹스인 전체 줄별 해설](./04_vars_mixins_line_by_line.md) — `scss/_vars.scss`, `scss/_mixins.scss`.
 5. [초기화 CSS와 루트 HTML 전체 줄별 해설](./05_reset_entry_line_by_line.md) — `scss/_reset.css`, 루트 `index.html`.
 6. [연습용 SCSS 파일 해설](./06_layout_test_line_by_line.md) — `scss/_layout_test.scss`; 실제 사이트용이 아닌 별도의 학습 파일.
