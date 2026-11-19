@@ -65,6 +65,11 @@ const mainSwiper = new Swiper(".main-visual", {
 
   grabCursor: true,
 });
+const productSlider = new Swiper(".product .slider", {
+  slidesPerView: 4,
+  spaceBetween: 20,
+  grabCursor: true,
+});
 
 // 플로팅 팝업 닫기
 const floating = document.querySelector(".floating");

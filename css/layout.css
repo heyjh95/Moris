@@ -434,3 +434,104 @@ main {
 .popup-inquiry .arrow {
   font-size: 24px;
 }
+
+.product {
+  position: relative;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 120px 40px;
+}
+.product .title-box {
+  margin-bottom: 50px;
+}
+.product .title-box h2 {
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: #24262b;
+}
+.product .title-box p {
+  margin-top: 20px;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #737780;
+}
+.product > .all-product {
+  position: absolute;
+  top: 185px;
+  right: 40px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #24262b;
+}
+.product > .all-product .material-symbols-outlined {
+  font-size: 22px;
+}
+.product .slider {
+  width: 100%;
+  overflow: hidden;
+}
+.product .slider .swiper-slide {
+  height: auto;
+}
+.product .slider .swiper-slide a {
+  display: block;
+  height: 100%;
+}
+.product .slider .swiper-slide a > div:first-child {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  background-color: #f5f5f3;
+  border-radius: 0;
+  transition: border-radius 0.4s ease;
+}
+.product .slider .swiper-slide a > div:first-child img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  transition: transform 0.5s ease;
+}
+.product .slider .swiper-slide .info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: 600;
+}
+.product .slider .swiper-slide .info .material-symbols-outlined {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 24;
+  border: 1px solid #24262b;
+  border-radius: 50%;
+  color: #24262b;
+  background-color: transparent;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.product .slider .swiper-slide:hover a > div:first-child {
+  border-radius: 20px 0;
+}
+.product .slider .swiper-slide:hover a > div:first-child img {
+  transform: scale(1.15);
+}
+.product .slider .swiper-slide:hover .info .material-symbols-outlined {
+  background-color: #24262b;
+  color: #fff;
+  border-color: #24262b;
+}
