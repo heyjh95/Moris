@@ -323,6 +323,11 @@ main {
 // 5. 메인2 프로덕트 (Swiper)
 // ========================================
 .product {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  column-gap: 32px;
+  row-gap: 48px;
+
   position: relative;
   max-width: 1280px;
   margin: 0 auto;
@@ -330,7 +335,7 @@ main {
 
   // 섹션 제목
   .title-box {
-    margin-bottom: 50px;
+    margin-bottom: 0;
 
     h2 {
       font-size: 56px;
@@ -351,26 +356,35 @@ main {
 
   // 전체 제품 보기
   > .all-product {
-    position: absolute;
-    top: 185px;
-    right: 40px;
-
-    display: flex;
+    display: inline-flex;
     align-items: center;
+    align-self: end;
+    justify-self: end;
     gap: 6px;
 
+    margin-bottom: 6px;
     font-size: 16px;
     font-weight: 500;
     color: $text-color;
 
+    transition: color 0.3s ease;
+
     .material-symbols-outlined {
       font-size: 22px;
+    }
+
+    &:hover {
+      color: $primary-color;
     }
   }
 
   // 제품 슬라이더
   .slider {
+    grid-column: 1 / -1; // Grid 두 열 전체 차지
+    position: relative;
+    min-width: 0;
     width: 100%;
+    padding-bottom: 36px; // 스크롤바 공간
     overflow: hidden;
 
     .swiper-slide {
@@ -384,8 +398,8 @@ main {
       // 제품 이미지 영역
       a > div:first-child {
         display: flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
 
         aspect-ratio: 4 / 5;
         overflow: hidden;
@@ -398,42 +412,46 @@ main {
           display: block;
           width: 100%;
           height: 100%;
-          object-fit: contain;
+          object-fit: cover;
+
           transition: transform 0.5s ease;
         }
       }
 
-      // 제품 정보
+      // 제품명과 화살표
       .info {
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        justify-content: space-between;
         gap: 12px;
 
         margin-top: 20px;
         font-size: 18px;
         font-weight: 600;
+        color: $text-color;
+
+        transition: color 0.3s ease;
 
         .material-symbols-outlined {
           display: flex;
-          justify-content: center;
-          align-items: center;
           flex-shrink: 0;
+          align-items: center;
+          justify-content: center;
 
           width: 44px;
           height: 44px;
+
+          color: $text-color;
+          background-color: transparent;
+
+          border: 1px solid $text-color;
+          border-radius: 50%;
 
           font-variation-settings:
             "FILL" 0,
             "wght" 500,
             "GRAD" 0,
             "opsz" 24;
-
-          border: 1px solid #24262b;
-          border-radius: 50%;
-
-          color: #24262b;
-          background-color: transparent;
 
           transition:
             background-color 0.3s ease,
@@ -442,22 +460,60 @@ main {
         }
       }
 
-      // 마우스 호버
+      // 제품 카드 Hover
       &:hover {
+        // 이미지 모서리와 확대
         a > div:first-child {
-          border-radius: 20px 0;
+          border-radius: 50px 0;
 
           img {
             transform: scale(1.15);
           }
         }
 
+        // 제품명과 원형 화살표
         .info {
+          color: $primary-color;
+
           .material-symbols-outlined {
-            background-color: #24262b;
-            color: #fff;
-            border-color: #24262b;
+            color: $white;
+            background-color: $text-color;
+            border-color: $text-color;
           }
+        }
+      }
+    }
+
+    // ========================================
+    // 제품 슬라이더 스크롤바
+    // ========================================
+    .swiper-scrollbar.product-scrollbar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+
+      width: 100%;
+      height: 6px;
+
+      background-color: $border-color;
+      border-radius: 100px;
+      opacity: 1;
+
+      // 드래그되는 손잡이
+      .swiper-scrollbar-drag {
+        height: 100%;
+        background-color: $text-muted;
+        border-radius: 100px;
+        cursor: grab;
+
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: $primary-color;
+        }
+
+        &:active {
+          cursor: grabbing;
         }
       }
     }

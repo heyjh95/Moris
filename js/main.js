@@ -69,6 +69,12 @@ const productSlider = new Swiper(".product .slider", {
   slidesPerView: 4,
   spaceBetween: 20,
   grabCursor: true,
+  scrollbar: {
+    el: ".product .product-scrollbar",
+    draggable: true,
+    hide: false,
+    snapOnRelease: true,
+  },
 });
 
 // 플로팅 팝업 닫기
