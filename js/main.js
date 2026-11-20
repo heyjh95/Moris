@@ -127,3 +127,26 @@ if (floating && closeBtn) {
     floating.style.display = "none";
   });
 }
+/* ========================================
+   5. Product2 나타나기
+======================================== */
+
+const categoryButtons = document.querySelectorAll(".product2__button");
+const categoryPanels = document.querySelectorAll(".product2__panel");
+
+categoryButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const targetId = button.getAttribute("aria-controls");
+    const targetPanel = document.getElementById(targetId);
+
+    if (!targetPanel) return;
+
+    categoryButtons.forEach((item) => {
+      item.setAttribute("aria-pressed", String(item === button));
+    });
+
+    categoryPanels.forEach((panel) => {
+      panel.hidden = panel !== targetPanel;
+    });
+  });
+});

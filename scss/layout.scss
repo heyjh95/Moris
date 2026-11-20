@@ -374,7 +374,7 @@ main {
   grid-template-columns: minmax(0, 1fr) auto;
   row-gap: 48px;
   column-gap: 32px;
-  max-width: 1280px;
+  max-width: 1440px;
   margin: 0 auto;
   padding: 120px 40px;
 
@@ -436,7 +436,7 @@ main {
     width: 100%;
     min-width: 0;
     overflow: hidden;
-    padding-bottom: 36px; // 스크롤바 공간
+    padding-bottom: 72px; // 스크롤바 공간
 
     .swiper-slide {
       height: auto;
@@ -630,16 +630,146 @@ main {
     }
   }
 }
+// ========================================
+// 6. 메인3 타이틀
+// ========================================
 
 .main2title {
-  height: 300px;
-  h2 {
-    font-size: 48px;
+  display: grid;
+  align-items: center;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 0px;
+
+  width: 100%;
+  min-height: 340px;
+  margin: 0 auto;
+  padding: 200px clamp(0px, 5vw, 200px);
+
+  // ========================================
+  // 태블릿: 제목 위 / 설명 아래
+  // ========================================
+  @media (max-width: 1024px) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+
+    min-height: auto;
+    padding: 120px 48px;
+
+    h2 {
+      font-size: clamp(28px, 5vw, 52px);
+      white-space: nowrap;
+    }
+
+    p {
+      align-self: start;
+      justify-self: start;
+      max-width: 680px;
+
+      font-size: clamp(18px, 2.2vw, 24px);
+    }
   }
+
+  // ========================================
+  // 모바일
+  // ========================================
+  @media (max-width: 768px) {
+    gap: 24px;
+    padding: 80px 20px;
+
+    h2 {
+      font-size: clamp(16px, 5vw, 36px);
+
+      &::before {
+        width: 36px;
+        height: 3px;
+        margin-bottom: 20px;
+      }
+    }
+
+    p {
+      max-width: 100%;
+      font-size: 17px;
+      line-height: 1.7;
+    }
+  }
+
+  h2 {
+    align-self: center;
+    justify-content: start;
+    min-width: 0;
+    font-size: clamp(52px, 5vw, 80px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.045em;
+    white-space: nowrap;
+    color: $text-color;
+
+    &::before {
+      display: block;
+      width: 48px;
+      height: 4px;
+      margin-bottom: 28px;
+      background-color: $primary-color;
+      content: "";
+    }
+  }
+
   p {
-    font-size: 24px;
+    align-self: center;
+    justify-self: start;
+    justify-self: end;
+    min-width: 0;
+
+    font-size: clamp(18px, 1.4vw, 32px);
+    font-weight: 400;
+    line-height: 1.8;
+    letter-spacing: -0.02em;
+    word-break: keep-all;
+    color: $text-muted;
   }
 }
-// ========================================
-// 6. 메인3 프로덕트2
-// ========================================
+.product2 {
+  padding: 100px clamp(20px, 5vw, 120px);
+
+  &__layout {
+    display: grid;
+    grid-template-columns: minmax(220px, 1fr) minmax(0, 2fr);
+    align-items: start;
+    gap: 40px;
+  }
+
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 18px 0;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  &__content {
+    min-width: 0;
+  }
+
+  &__panel:not([hidden]) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: center;
+    gap: 40px;
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  @media (max-width: 768px) {
+    &__layout,
+    &__panel:not([hidden]) {
+      grid-template-columns: 1fr;
+    }
+  }
+}
