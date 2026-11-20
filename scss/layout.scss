@@ -14,48 +14,120 @@ main {
 // ========================================
 // 2. 헤더
 // ========================================
+
 .header {
-  @include flex-center;
+  display: grid;
   position: fixed;
   top: 0;
   left: 0;
   z-index: 99;
+  align-items: center;
+
+  grid-template-columns: minmax(126px, 1fr) auto minmax(126px, 1fr);
+
   width: 100%;
   height: 100px;
+  padding-inline: clamp(16px, 3vw, 50px);
+
   background-color: rgba(255, 255, 255, 0.5);
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(20px);
-  //로고
+
   .logo {
-    position: absolute;
-    left: 50px;
+    position: static; // absolute 제거
+    justify-self: start;
+    grid-column: 1;
+    margin: 0;
+
     a {
-      @include flex-center;
+      display: flex;
+      align-items: center;
+
       img {
+        display: block;
         width: 126px;
-        height: 35px;
+        height: auto;
       }
     }
   }
-}
-// 중앙 네비게이션
-.gnb {
-  .ul {
-    @include flex-center;
-    li {
-      a {
-        padding: 0 40px;
+
+  .gnb {
+    justify-self: center;
+    grid-column: 2;
+    min-width: 0;
+
+    .ul {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(16px, 2.2vw, 36px);
+
+      li a {
+        display: block;
+        padding: 12px 0;
+
         font-size: 18px;
         font-weight: 500;
         white-space: nowrap;
-        transition: 0.3s;
+
+        transition: color 0.3s;
+
         &:hover {
           color: $primary-color;
         }
       }
     }
   }
+
+  // 태블릿: 로고 + 메뉴 2열
+  @media (max-width: 1100px) {
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 24px;
+
+    .gnb {
+      justify-self: end;
+      grid-column: 2;
+      max-width: 100%;
+
+      .ul {
+        justify-content: flex-end;
+        gap: 18px;
+
+        li a {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  // 모바일: 메뉴 가로 스크롤
+  @media (max-width: 768px) {
+    column-gap: 16px;
+    height: 74px;
+    padding-inline: 16px;
+
+    .logo a img {
+      width: 105px;
+    }
+
+    .gnb {
+      width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .ul {
+        justify-content: flex-start;
+        gap: 16px;
+        width: max-content;
+      }
+    }
+  }
 }
+
 // ========================================
 // 3. 메인 비주얼 (Swiper)
 // ========================================
@@ -635,21 +707,61 @@ main {
 // ========================================
 
 .main2title {
-  display: grid;
+  display: flex;
   align-items: center;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-  gap: 0px;
+  justify-content: center;
+  gap: clamp(24px, 3vw, 56px);
 
   width: 100%;
   min-height: 340px;
   margin: 0 auto;
   padding: 200px clamp(0px, 5vw, 200px);
 
-  // ========================================
-  // 태블릿: 제목 위 / 설명 아래
-  // ========================================
+  // 제목과 빨간 선을 묶는 영역
+  &__heading {
+    position: relative;
+    flex: 0 0 auto;
+  }
+
+  // 빨간 선 (레이아웃 높이에 영향 없음)
+  &__line {
+    position: absolute;
+    top: -32px;
+    left: 0;
+
+    width: 48px;
+    height: 4px;
+
+    background-color: $primary-color;
+  }
+
+  h2 {
+    font-size: clamp(52px, 5vw, 80px);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.045em;
+    white-space: nowrap;
+    color: $text-color;
+  }
+
+  p {
+    flex: 0 1 380px;
+    min-width: 0;
+    max-width: 380px;
+
+    font-size: clamp(18px, 1.4vw, 32px);
+    font-weight: 400;
+    line-height: 1.8;
+    letter-spacing: -0.02em;
+    text-align: left;
+    word-break: keep-all;
+    color: $text-muted;
+  }
+
+  // 태블릿
   @media (max-width: 1024px) {
-    grid-template-columns: minmax(0, 1fr);
+    flex-direction: column;
+    align-items: flex-start;
     gap: 32px;
 
     min-height: auto;
@@ -657,33 +769,29 @@ main {
 
     h2 {
       font-size: clamp(28px, 5vw, 52px);
-      white-space: nowrap;
     }
 
     p {
-      align-self: start;
-      justify-self: start;
+      flex: none;
+      width: 100%;
       max-width: 680px;
-
       font-size: clamp(18px, 2.2vw, 24px);
     }
   }
 
-  // ========================================
   // 모바일
-  // ========================================
   @media (max-width: 768px) {
     gap: 24px;
     padding: 80px 20px;
 
+    &__line {
+      top: -24px;
+      width: 36px;
+      height: 3px;
+    }
+
     h2 {
       font-size: clamp(16px, 5vw, 36px);
-
-      &::before {
-        width: 36px;
-        height: 3px;
-        margin-bottom: 20px;
-      }
     }
 
     p {
@@ -692,84 +800,657 @@ main {
       line-height: 1.7;
     }
   }
+}
 
-  h2 {
-    align-self: center;
-    justify-content: start;
-    min-width: 0;
-    font-size: clamp(52px, 5vw, 80px);
+// ========================================
+// 7. 메인4 PRODUCT2 - 제품 카테고리
+// ========================================
+
+.product2 {
+  width: 100%;
+  padding: 120px clamp(20px, 5vw, 120px);
+  background-color: #e8eaed;
+
+  // ========================================
+  // 1. 섹션 제목
+  // ========================================
+  &__title {
+    max-width: 1440px;
+    margin: 0 auto 48px;
+
+    font-size: clamp(32px, 3vw, 48px);
     font-weight: 700;
     line-height: 1.2;
-    letter-spacing: -0.045em;
-    white-space: nowrap;
     color: $text-color;
-
-    &::before {
-      display: block;
-      width: 48px;
-      height: 4px;
-      margin-bottom: 28px;
-      background-color: $primary-color;
-      content: "";
-    }
   }
 
-  p {
-    align-self: center;
-    justify-self: start;
-    justify-self: end;
-    min-width: 0;
-
-    font-size: clamp(18px, 1.4vw, 32px);
-    font-weight: 400;
-    line-height: 1.8;
-    letter-spacing: -0.02em;
-    word-break: keep-all;
-    color: $text-muted;
-  }
-}
-.product2 {
-  padding: 100px clamp(20px, 5vw, 120px);
-
+  // ========================================
+  // 2. 전체 레이아웃
+  // ========================================
   &__layout {
     display: grid;
-    grid-template-columns: minmax(220px, 1fr) minmax(0, 2fr);
+    grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
     align-items: start;
-    gap: 40px;
+    gap: clamp(24px, 4vw, 72px);
+
+    max-width: 1440px;
+    margin: 0 auto;
+  }
+
+  // ========================================
+  // 3. 왼쪽 제품 카테고리 목록
+  // ========================================
+  &__list {
+    border-top: 1px solid $border-color;
+  }
+
+  &__item {
+    border-bottom: 1px solid $border-color;
   }
 
   &__button {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 12px;
+
     width: 100%;
-    padding: 18px 0;
+    padding: 20px 12px;
+
+    font-size: 20px;
+    font-weight: 500;
     text-align: left;
+    color: $text-color;
+    background-color: transparent;
     cursor: pointer;
+
+    transition:
+      color 0.3s ease,
+      background-color 0.3s ease;
+
+    &:hover {
+      color: $primary-color;
+      background-color: rgba(255, 255, 255, 0.45);
+    }
+
+    &[aria-pressed="true"] {
+      font-weight: 700;
+      color: $primary-color;
+      background-color: rgba(255, 255, 255, 0.7);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $primary-color;
+      outline-offset: 2px;
+    }
   }
 
+  &__button-icon {
+    flex-shrink: 0;
+    font-size: 18px;
+  }
+
+  // ========================================
+  // 4. 오른쪽 제품 상세 영역
+  // ========================================
   &__content {
     min-width: 0;
   }
 
+  // 선택된 패널만 표시
   &__panel:not([hidden]) {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    align-items: stretch;
+    gap: clamp(24px, 3vw, 48px);
+
+    box-sizing: border-box;
+    width: 100%;
+    height: clamp(600px, 45vw, 740px);
+    min-height: 0;
+    padding: clamp(20px, 2.5vw, 48px);
+
+    // 섹션과 동일한 회색
+    background-color: #e8eaed;
+  }
+
+  // ========================================
+  // 5. 제품 정보
+  // ========================================
+  &__info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 24px;
+
+    min-width: 0;
+  }
+
+  &__heading {
+    font-size: clamp(32px, 3vw, 56px);
+    font-weight: 700;
+    line-height: 1.2;
+    color: $text-color;
+    word-break: keep-all;
+  }
+
+  &__description {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.8;
+    letter-spacing: -0.02em;
+    color: $text-muted;
+    word-break: keep-all;
+  }
+
+  // 전체 제품 보기
+  &__link {
+    display: inline-flex;
     align-items: center;
-    gap: 40px;
+    gap: 8px;
+    padding-bottom: 8px;
+
+    font-size: 17px;
+    font-weight: 600;
+    color: $text-color;
+    border-bottom: 1px solid $text-color;
+
+    transition:
+      color 0.3s ease,
+      border-color 0.3s ease;
+
+    &:hover {
+      color: $primary-color;
+      border-color: $primary-color;
+    }
+  }
+
+  &__link-icon {
+    font-size: 22px;
+  }
+
+  // ========================================
+  // 6. 제품 이미지 영역
+  // ========================================
+  &__visual {
+    position: relative;
+    align-self: stretch;
+
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+
+    // 섹션과 동일한 회색
+    background-color: #e8eaed;
   }
 
   &__image {
     display: block;
+    position: absolute;
+    inset: 0;
+
     width: 100%;
-    height: auto;
-    object-fit: contain;
+    height: 100%;
+    max-height: none;
+
+    object-fit: cover;
+    object-position: center;
+    background-color: #e8eaed;
   }
 
-  @media (max-width: 768px) {
-    &__layout,
+  // ========================================
+  // 7. 태블릿
+  // ========================================
+  @media (max-width: 1024px) {
+    padding: 100px 40px;
+
+    &__layout {
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 24px;
+    }
+
     &__panel:not([hidden]) {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 32px;
+
+      height: auto;
+      min-height: 0;
+      padding: 24px;
+    }
+
+    &__info {
+      gap: 20px;
+    }
+
+    &__heading {
+      font-size: 36px;
+    }
+
+    &__description {
+      font-size: 17px;
+    }
+
+    &__visual {
+      height: auto;
+      aspect-ratio: 4 / 3;
+    }
+  }
+
+  // ========================================
+  // 8. 모바일
+  // ========================================
+  @media (max-width: 768px) {
+    padding: 80px 20px;
+
+    &__title {
+      margin-bottom: 32px;
+      font-size: 32px;
+    }
+
+    &__layout {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 32px;
+    }
+
+    // 카테고리 가로 스크롤
+    &__list {
+      display: flex;
+      gap: 8px;
+
+      overflow-x: auto;
+      padding-bottom: 12px;
+      border: 0;
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    &__item {
+      flex-shrink: 0;
+      border: 0;
+    }
+
+    &__button {
+      width: auto;
+      padding: 12px 16px;
+
+      font-size: 16px;
+      white-space: nowrap;
+
+      border: 1px solid $border-color;
+      border-radius: 100px;
+
+      &[aria-pressed="true"] {
+        border-color: $primary-color;
+      }
+    }
+
+    &__button-icon {
+      display: none;
+    }
+
+    &__panel:not([hidden]) {
+      gap: 24px;
+      padding: 0;
+    }
+
+    &__heading {
+      font-size: 32px;
+    }
+
+    &__description {
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    &__visual {
+      aspect-ratio: 4 / 3;
+    }
+  }
+}
+
+// ========================================
+// 8. PRODUCT3 - BRAND
+// ========================================
+
+.product3 {
+  width: 100%;
+  padding: 100px clamp(20px, 4vw, 64px);
+  background-color: #e2e2e2;
+
+  // 전체 콘텐츠 너비
+  &__inner {
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+
+  // ========================================
+  // 1. 섹션 제목
+  // ========================================
+  &__title {
+    font-size: 18px;
+    font-weight: 500;
+    color: $text-color;
+  }
+
+  // ========================================
+  // 2. 브랜드 로고 탭
+  // ========================================
+  &__tabs {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+
+    width: min(100%, 1020px);
+    margin: 48px 0 34px auto;
+  }
+
+  // 라디오 버튼은 화면에서만 숨김
+  &__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  &__tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 0;
+    height: 64px;
+    padding: 8px 12px;
+
+    border-top: 1px solid #b9b9b9;
+    border-bottom: 1px solid #b9b9b9;
+    cursor: pointer;
+
+    transition: border-color 0.3s ease;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 44px;
+      object-fit: contain;
+
+      filter: grayscale(1);
+      opacity: 0.4;
+
+      transition:
+        filter 0.3s ease,
+        opacity 0.3s ease;
+    }
+
+    &:hover {
+      img {
+        opacity: 0.75;
+      }
+    }
+  }
+
+  // 선택된 브랜드
+  &__input:checked + &__tab {
+    border-top-color: $text-color;
+    border-bottom-color: $text-color;
+
+    img {
+      filter: none;
+      opacity: 1;
+    }
+  }
+
+  // 키보드 포커스
+  &__input:focus-visible + &__tab {
+    outline: 2px solid $primary-color;
+    outline-offset: 3px;
+  }
+
+  // ========================================
+  // 3. 브랜드 패널
+  // ========================================
+  &__panels {
+    width: 100%;
+  }
+
+  &__panel {
+    display: none;
+
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    align-items: stretch;
+    gap: clamp(36px, 4vw, 72px);
+
+    width: 100%;
+  }
+
+  // 선택한 브랜드 패널만 노출
+  &:has(#product3-tab01:checked) &__panel--01,
+  &:has(#product3-tab02:checked) &__panel--02,
+  &:has(#product3-tab03:checked) &__panel--03,
+  &:has(#product3-tab04:checked) &__panel--04 {
+    display: grid;
+  }
+
+  // ========================================
+  // 4. 왼쪽 제품 이미지
+  // ========================================
+  &__visual {
+    width: 100%;
+    min-width: 0;
+    height: clamp(360px, 32vw, 500px);
+    overflow: hidden;
+    background-color: #d4d4d4;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+      object-position: center;
+    }
+  }
+
+  // ========================================
+  // 5. 오른쪽 브랜드 콘텐츠
+  // ========================================
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 40px;
+
+    min-width: 0;
+    padding: 24px 0 28px;
+  }
+
+  // 큰 브랜드 로고
+  &__brand {
+    width: 100%;
+    min-width: 0;
+  }
+
+  // 시맨틱 제목은 유지하되 시각적으로 숨김
+  &__brand-name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  &__brand-logo {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    height: clamp(90px, 10vw, 150px);
+
+    object-fit: contain;
+    object-position: left center;
+  }
+
+  // ========================================
+  // 6. 브랜드 설명
+  // ========================================
+  &__info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+
+    max-width: 650px;
+
+    h4 {
+      font-size: clamp(22px, 1.8vw, 28px);
+      font-weight: 600;
+      line-height: 1.3;
+      color: $text-color;
+    }
+
+    p {
+      font-size: clamp(15px, 1vw, 17px);
+      font-weight: 400;
+      line-height: 1.8;
+      letter-spacing: -0.02em;
+      word-break: keep-all;
+      color: $text-color;
+    }
+  }
+
+  // ========================================
+  // 7. View all 버튼
+  // ========================================
+  &__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    min-width: 124px;
+    margin-top: 6px;
+    padding: 8px 20px;
+
+    font-size: 16px;
+    font-weight: 500;
+    color: $text-color;
+    border: 1px solid $text-color;
+    border-radius: 100px;
+
+    transition:
+      color 0.3s ease,
+      background-color 0.3s ease;
+
+    .material-symbols-outlined {
+      font-size: 18px;
+    }
+
+    &:hover {
+      color: #fff;
+      background-color: $text-color;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $primary-color;
+      outline-offset: 3px;
+    }
+  }
+
+  // ========================================
+  // 8. 태블릿
+  // ========================================
+  @media (max-width: 1024px) {
+    padding: 80px 40px;
+
+    &__tabs {
+      margin: 40px 0 28px;
+    }
+
+    &__panel {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 32px;
+    }
+
+    &__visual {
+      height: auto;
+      aspect-ratio: 3 / 2;
+    }
+
+    &__content {
+      gap: 36px;
+      padding: 0;
+    }
+
+    &__brand-logo {
+      height: 110px;
+    }
+
+    &__info {
+      max-width: 680px;
+    }
+  }
+
+  // ========================================
+  // 9. 모바일
+  // ========================================
+  @media (max-width: 768px) {
+    padding: 64px 20px;
+
+    &__title {
+      font-size: 16px;
+    }
+
+    &__tabs {
+      gap: 6px;
+      margin: 28px 0 24px;
+    }
+
+    &__tab {
+      height: 48px;
+      padding: 6px 4px;
+
+      img {
+        height: 30px;
+      }
+    }
+
+    &__panel {
+      gap: 24px;
+    }
+
+    &__visual {
+      aspect-ratio: 4 / 3;
+    }
+
+    &__content {
+      gap: 24px;
+    }
+
+    &__brand-logo {
+      height: 80px;
+    }
+
+    &__info {
+      gap: 12px;
+
+      h4 {
+        font-size: 22px;
+      }
+
+      p {
+        font-size: 15px;
+        line-height: 1.7;
+      }
+    }
+
+    &__link {
+      font-size: 14px;
     }
   }
 }
