@@ -1356,3 +1356,71 @@ body.is-site-menu-open { overflow: hidden; }
   .header.is-menu-open .header__menu-toggle span:first-child { transform: translateY(7px) rotate(45deg); }
   .header.is-menu-open .header__menu-toggle span:last-child { transform: translateY(-7px) rotate(-45deg); }
 }
+
+
+/* Hamburger overlay: dark two-column menu */
+.header.is-menu-open {
+  z-index: 110;
+  background-color: #242424;
+  box-shadow: none;
+}
+.header.is-menu-open .gnb a,
+.header.is-menu-open .header__language summary { color: #fff; }
+.header.is-menu-open .header__menu-toggle span { background-color: #fff; }
+.header__drawer {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 0;
+  padding: 0;
+  background-color: #242424;
+  color: #fff;
+  border-top: 1px solid #515151;
+}
+.header__drawer[hidden] { display: none; }
+.header__drawer ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(10px, 2vh, 28px);
+  margin: 0;
+  max-width: none;
+  padding: clamp(32px, 5vw, 96px);
+  list-style: none;
+}
+.header__drawer li { border: 0; }
+.header__drawer a {
+  display: inline-block;
+  padding: 0;
+  font-size: clamp(32px, 4.2vw, 64px);
+  line-height: 1.2;
+  font-weight: 700;
+  color: #929292;
+  transition: color .2s ease;
+}
+.header__drawer a:hover,
+.header__drawer a:focus-visible { color: #fff; }
+.header__drawer-media {
+  position: relative;
+  min-height: 100%;
+  border-left: 1px solid #515151;
+  background: url("../images/main/sec6_bg.jpg") center / cover no-repeat;
+}
+.header__drawer-media::after {
+  content: "Beautiful, Useful, Sustainable.";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  font-size: clamp(16px, 2vw, 24px);
+  font-weight: 600;
+  text-align: center;
+  color: #fff;
+  background: rgba(0,0,0,.18);
+}
+@media (max-width: 768px) {
+  .header__drawer { grid-template-columns: 1fr; }
+  .header__drawer ul { padding: 32px 24px; }
+  .header__drawer a { font-size: clamp(30px, 8vw, 46px); }
+  .header__drawer-media { display: none; }
+}
