@@ -59,15 +59,36 @@
         </a>
       </h1>
 
-      <nav class="gnb">
-        <!-- ul>li*>a -->
+      <nav class="gnb" aria-label="주 메뉴">
         <ul class="ul">
-          <li class="list list1"><a href="#">상품소개</a></li>
-          <li class="list list2"><a href="#">회사소개</a></li>
-          <li class="list list3"><a href="#">연구개발</a></li>
-          <li class="list list4"><a href="#">홍보센터</a></li>
-          <li class="list list5"><a href="#">문의하기</a></li>
+          <li><a href="#products">상품소개</a></li>
+          <li><a href="#brands">회사소개</a></li>
+          <li><a href="#products">연구개발</a></li>
+          <li><a href="#brands">홍보센터</a></li>
+          <li><a href="#product-categories">문의하기</a></li>
         </ul>
+      </nav>
+      <div class="header__actions">
+        <details class="header__language">
+          <summary aria-label="언어 선택">KR <span aria-hidden="true">⌄</span></summary>
+          <div class="header__language-menu">
+            <a href="./index.html" aria-current="page">한국어</a>
+            <a href="./en.html" >English</a>
+          </div>
+        </details>
+        <button class="header__menu-toggle" type="button" aria-label="전체 메뉴 열기" aria-expanded="false" aria-controls="site-drawer">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+      <nav id="site-drawer" class="header__drawer" aria-label="전체 메뉴" hidden>
+        <ul>
+          <li><a href="#products">상품소개</a></li>
+          <li><a href="#brands">회사소개</a></li>
+          <li><a href="#products">연구개발</a></li>
+          <li><a href="#brands">홍보센터</a></li>
+          <li><a href="#product-categories">문의하기</a></li>
+        </ul>
+        <div class="header__drawer-media" aria-hidden="true"></div>
       </nav>
     </header>
     <!-- header end -->
@@ -123,7 +144,7 @@
           </div>
         </div>
       </section>
-      <section class="product">
+      <section class="product" id="products">
         <div class="title-box">
           <h2>NEW PRODUCT</h2>
           <p>
@@ -222,7 +243,7 @@
       </section>
 
       <!-- 제품 카테고리: 왼쪽 선택 목록 + 오른쪽 상세 패널 -->
-      <section class="product2" aria-labelledby="product2-title">
+      <section class="product2" id="product-categories" aria-labelledby="product2-title">
         <h2 id="product2-title" class="product2__title">제품 카테고리</h2>
 
         <div class="product2__layout">
@@ -240,7 +261,7 @@
                   class="material-symbols-outlined product2__button-icon"
                   aria-hidden="true"
                 >
-                  arrow_forward_ios
+                  arrow_outward
                 </span>
               </button>
             </li>
@@ -256,7 +277,7 @@
                   class="material-symbols-outlined product2__button-icon"
                   aria-hidden="true"
                 >
-                  arrow_forward_ios
+                  arrow_outward
                 </span>
               </button>
             </li>
@@ -272,7 +293,7 @@
                   class="material-symbols-outlined product2__button-icon"
                   aria-hidden="true"
                 >
-                  arrow_forward_ios
+                  arrow_outward
                 </span>
               </button>
             </li>
@@ -288,7 +309,7 @@
                   class="material-symbols-outlined product2__button-icon"
                   aria-hidden="true"
                 >
-                  arrow_forward_ios
+                  arrow_outward
                 </span>
               </button>
             </li>
@@ -304,7 +325,7 @@
                   class="material-symbols-outlined product2__button-icon"
                   aria-hidden="true"
                 >
-                  arrow_forward_ios
+                  arrow_outward
                 </span>
               </button>
             </li>
@@ -320,7 +341,7 @@
                   class="material-symbols-outlined product2__button-icon"
                   aria-hidden="true"
                 >
-                  arrow_forward_ios
+                  arrow_outward
                 </span>
               </button>
             </li>
@@ -336,7 +357,7 @@
                   class="material-symbols-outlined product2__button-icon"
                   aria-hidden="true"
                 >
-                  arrow_forward_ios
+                  arrow_outward
                 </span>
               </button>
             </li>
@@ -352,7 +373,7 @@
                   class="material-symbols-outlined product2__button-icon"
                   aria-hidden="true"
                 >
-                  arrow_forward_ios
+                  arrow_outward
                 </span>
               </button>
             </li>
@@ -368,7 +389,7 @@
                   class="material-symbols-outlined product2__button-icon"
                   aria-hidden="true"
                 >
-                  arrow_forward_ios
+                  arrow_outward
                 </span>
               </button>
             </li>
@@ -384,7 +405,7 @@
                   class="material-symbols-outlined product2__button-icon"
                   aria-hidden="true"
                 >
-                  arrow_forward_ios
+                  arrow_outward
                 </span>
               </button>
             </li>
@@ -779,7 +800,7 @@
       <!-- ========================================
      PRODUCT3 - BRAND
 ======================================== -->
-      <section class="product3" aria-labelledby="product3-title">
+      <section class="product3" id="brands" aria-labelledby="product3-title">
         <div class="product3__inner">
           <h2 class="product3__title" id="product3-title">BRAND</h2>
 
