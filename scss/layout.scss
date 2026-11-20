@@ -903,7 +903,6 @@ main {
 .product2__image {
   display: block;
   position: static;
-  right: 50px;
   width: auto;
   height: 100%;
   max-height: none;
@@ -1018,6 +1017,17 @@ main {
 }
 .product2__link-icon {
   font-size: 22px;
+}
+// Desktop: align product image against the right edge of its visual region.
+@media (min-width: 1201px) {
+  .product2__visual {
+    justify-content: flex-end;
+  }
+
+  .product2__image {
+    margin-left: auto;
+    transform-origin: right center;
+  }
 }
 @media (max-width: 1200px) {
   .product2__layout {
