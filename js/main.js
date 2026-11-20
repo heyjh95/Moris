@@ -1,118 +1,55 @@
 /* ========================================
-   1. 메인 비주얼 페이지네이션 콘텐츠
+   1. 메인 비주얼 Swiper
+   슬라이드 제목과 설명은 각 HTML의 .pagination 안에서 관리합니다.
 ======================================== */
 
-const customBulletsKo = [
-  `
-    <span class="no">01</span>
-    <p class="title">Prime 글리터 형광펜 S</p>
+// HTML에 정의한 페이지네이션 4개를 가져옵니다.
+const mainVisualBullets = Array.from(
+  document.querySelectorAll(".main-visual .pagination .swiper-pagination-bullet"),
+);
 
-    <div class="bullet-detail">
-      <p class="desc">
-        안정적인 그립감의 JUSTCLICK Prime.
-        글리터 잉크와 손에 감기는
-        육각형 바디가 특징입니다.
-      </p>
-      <span class="btn">Find out more</span>
-    </div>
-  `,
-  `
-    <span class="no">02</span>
-    <p class="title">Prime 형광펜 S 앤티크</p>
-
-    <div class="bullet-detail">
-      <p class="desc">
-        안정적인 그립감의 JUSTCLICK Prime.
-        독보적인 컬러감의 잉크와 손에 감기는
-        육각형 바디가 특징입니다.
-      </p>
-      <span class="btn">Find out more</span>
-    </div>
-  `,
-  `
-    <span class="no">03</span>
-    <p class="title">Prime 형광펜 M 마일드</p>
-
-    <div class="bullet-detail">
-      <p class="desc">
-        안정적인 그립감의 JUSTCLICK Prime.
-        부드러운 마일드 컬러의 잉크와 손에 감기는
-        팔각형 바디가 특징입니다.
-      </p>
-      <span class="btn">Find out more</span>
-    </div>
-  `,
-  `
-    <span class="no">04</span>
-    <p class="title">사인펜 S 플러스</p>
-
-    <div class="bullet-detail">
-      <p class="desc">
-        한 번의 클릭으로 바로 사용 가능한 사인펜 S 플러스.
-        뚜껑 없는 수성 펜으로,
-        부드러운 필기감을 선사하는 얇은 팁이 특징입니다.
-      </p>
-      <span class="btn">Find out more</span>
-    </div>
-  `,
-];
-
-/* ========================================
-   2. 메인 비주얼 Swiper
-======================================== */
-
-const customBulletsEn = [
-  `
-    <span class="no">01</span>
-    <p class="title">Prime Glitter Highlighter S</p>
-    <div class="bullet-detail"><p class="desc">Steady in hand, JUSTCLICK Prime. Seven glitter ink colors and a comfortable hexagonal grip.</p><span class="btn">Find out more</span></div>
-  `,
-  `
-    <span class="no">02</span>
-    <p class="title">Prime Highlighter S Antique</p>
-    <div class="bullet-detail"><p class="desc">Distinctive antique colors and a comfortable hexagonal grip in the JUSTCLICK Prime.</p><span class="btn">Find out more</span></div>
-  `,
-  `
-    <span class="no">03</span>
-    <p class="title">Prime Highlighter M Mild</p>
-    <div class="bullet-detail"><p class="desc">Soft mild colors and a comfortable octagonal grip for a smooth highlight.</p><span class="btn">Find out more</span></div>
-  `,
-  `
-    <span class="no">04</span>
-    <p class="title">Sign Pen S Plus</p>
-    <div class="bullet-detail"><p class="desc">A convenient capless water-based pen with a fine tip for effortless everyday writing.</p><span class="btn">Find out more</span></div>
-  `
-];
-const customBullets = document.documentElement.lang === "en" ? customBulletsEn : customBulletsKo;
+// 현재 슬라이드 번호와 페이지네이션 활성 상태를 일치시킵니다.
+function syncMainVisualPagination(realIndex) {
+  mainVisualBullets.forEach((bullet, index) => {
+    const isActive = index === realIndex;
+    bullet.classList.toggle("swiper-pagination-bullet-active", isActive);
+    bullet.setAttribute("aria-current", String(isActive));
+  });
+}
 
 const mainSwiper = new Swiper(".main-visual", {
   slidesPerView: 1,
   loop: true,
   speed: 800,
 
-  // 자동 재생
   autoplay: {
     delay: 4000,
     disableOnInteraction: false,
   },
 
-  // 페이지네이션
-  pagination: {
-    el: ".main-visual .pagination",
-    clickable: true,
+  grabCursor: true,
 
-    renderBullet: function (index, className) {
-      return `
-        <div class="${className}">
-          <div class="bullet-content">
-            ${customBullets[index]}
-          </div>
-        </div>
-      `;
+  on: {
+    init(swiper) {
+      syncMainVisualPagination(swiper.realIndex);
+    },
+    slideChange(swiper) {
+      syncMainVisualPagination(swiper.realIndex);
     },
   },
+});
 
-  grabCursor: true,
+// 클릭·키보드 조작으로 해당 슬라이드로 이동합니다.
+mainVisualBullets.forEach((bullet, index) => {
+  const goToSlide = () => mainSwiper.slideToLoop(index);
+
+  bullet.addEventListener("click", goToSlide);
+  bullet.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      goToSlide();
+    }
+  });
 });
 
 /* ========================================
