@@ -55,11 +55,21 @@ const mainSwiper = new Swiper(".main-visual", {
     clickable: true,
 
     renderBullet: function (index, className) {
+      const item = paginationItems[index];
+
       return `
-        <div class="${className}">
-          ${customBullets[index]}
+      <div class="${className}">
+        <div class="bullet-content">
+          <span class="no">${String(index + 1).padStart(2, "0")}</span>
+          <strong class="title">${item.title}</strong>
+
+          <div class="bullet-detail">
+            <p class="desc">${item.desc}</p>
+            <span class="btn">자세히 보기</span>
+          </div>
         </div>
-      `;
+      </div>
+    `;
     },
   },
 

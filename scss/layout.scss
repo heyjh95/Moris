@@ -85,108 +85,150 @@ main {
       }
     }
   }
+
   .pagination {
     display: grid;
     position: absolute;
     bottom: 20px;
     left: 50%;
     z-index: 10;
-    align-items: end;
+
     grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: end;
     gap: 20px;
 
     width: min(1200px, calc(100% - 40px));
+    height: 270px;
+
     transform: translateX(-50%);
 
+    // ========================================
+    // 1. 페이지네이션 카드
+    // ========================================
     .swiper-pagination-bullet {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-end;
+      display: block;
+      position: relative;
+      isolation: isolate;
 
       width: 100%;
-      height: 120px;
+      height: 270px;
       overflow: hidden;
       margin: 0;
-      padding: 12px;
+      padding: 0;
 
       text-align: left;
       color: #fff;
-      background: rgba(0, 0, 0, 0.35);
-      border-bottom: 3px solid transparent;
+      background: transparent;
       border-radius: 0;
       opacity: 1;
-      transition:
-        height 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-        background-color 0.25s ease-out,
-        border-color 0.25s ease-out;
+      cursor: pointer;
 
-      &:not(.swiper-pagination-bullet-active) {
-        justify-content: flex-end;
+      // 배경 높이를 transform으로 제어
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+
+        background: rgba(0, 0, 0, 0.35);
+        border-bottom: 3px solid transparent;
+
+        transform: scaleY(0.444444);
+        transform-origin: bottom;
+
+        transition:
+          transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+          background-color 0.3s ease,
+          border-color 0.3s ease;
       }
+
+      // ========================================
+      // 2. 콘텐츠 그룹
+      // ========================================
+      .bullet-content {
+        display: flex;
+        position: absolute;
+        top: 0;
+        left: 0;
+        flex-direction: column;
+        align-items: flex-start;
+
+        width: 100%;
+        padding: 12px;
+
+        transform: translateY(150px);
+
+        transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      // ========================================
+      // 3. 번호
+      // ========================================
       .no {
+        flex-shrink: 0;
+
         font-size: 16px;
         font-weight: 700;
       }
 
+      // ========================================
+      // 4. 제목
+      // ========================================
       .title {
         flex-shrink: 0;
         margin-top: 8px;
+
         font-size: 24px;
         font-weight: 700;
         line-height: 1.3;
       }
 
-      .desc {
-        flex-shrink: 0;
-        min-height: 0;
-        max-height: 0;
-        margin-top: 0;
+      // ========================================
+      // 5. 상세 콘텐츠 그룹
+      // ========================================
+      .bullet-detail {
+        width: 100%;
+        margin-top: 10px;
 
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(24px);
+
+        transition:
+          opacity 0.4s ease,
+          transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+          visibility 0.4s;
+      }
+
+      // ========================================
+      // 6. 설명
+      // ========================================
+      .desc {
         font-size: 16px;
         line-height: 1.7;
 
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(15px);
-
-        transition:
-          max-height 0.55s ease-out,
-          margin-top 0.55s ease-out,
-          opacity 0.4s ease-out,
-          transform 0.55s ease-out,
-          visibility 0.55s;
         @include ellipsis(4);
       }
 
+      // ========================================
+      // 7. 버튼
+      // ========================================
       .btn {
         display: inline-flex;
-        flex-shrink: 0;
         align-items: center;
-        align-self: flex-start;
 
-        max-height: 0;
-        overflow: hidden;
-        margin-top: 0;
-        padding: 0 20px;
+        margin-top: 14px;
+        padding: 6px 20px;
 
         font-size: 20px;
         color: #fff;
-        border: 0 solid transparent;
+        border: 2px solid #fff;
         border-radius: 100px;
 
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(15px);
-
         transition:
-          max-height 0.55s ease-out,
-          margin-top 0.55s ease-out,
-          padding 0.55s ease-out,
-          opacity 0.4s ease-out,
-          transform 0.55s ease-out,
-          visibility 0.55s,
-          background-color 0.3s;
+          color 0.3s ease,
+          background-color 0.3s ease;
+
         @include button-base;
 
         &:hover {
@@ -194,31 +236,28 @@ main {
           background-color: #fff;
         }
       }
-      // 활성화
-      &-active {
-        justify-content: flex-start; // 활성 상태에서는 위쪽부터 정렬
-        height: 270px;
-        background: rgba(0, 0, 0, 0.65);
-        border-bottom: 3px solid $primary-color;
-        opacity: 1;
-        border-bottom-color: $primary-color;
 
-        .desc {
-          max-height: 80px;
-          margin-top: 10px;
-          opacity: 1;
-          visibility: visible;
+      // ========================================
+      // 8. 활성 상태
+      // ========================================
+      &-active {
+        &::before {
+          background: rgba(0, 0, 0, 0.65);
+          border-bottom-color: $primary-color;
+
+          transform: scaleY(1);
+        }
+
+        .bullet-content {
           transform: translateY(0);
         }
 
-        .btn {
-          max-height: 55px;
-          margin-top: 14px;
-          padding: 6px 20px;
-          border: 2px solid #fff;
+        .bullet-detail {
           opacity: 1;
           visibility: visible;
           transform: translateY(0);
+
+          transition-delay: 0.12s;
         }
       }
     }
@@ -324,11 +363,11 @@ main {
 // ========================================
 .product {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  column-gap: 32px;
-  row-gap: 48px;
 
   position: relative;
+  grid-template-columns: minmax(0, 1fr) auto;
+  row-gap: 48px;
+  column-gap: 32px;
   max-width: 1280px;
   margin: 0 auto;
   padding: 120px 40px;
@@ -361,31 +400,37 @@ main {
     align-self: end;
     justify-self: end;
     gap: 6px;
-
     margin-bottom: 6px;
-    font-size: 16px;
+    padding: 8px 12px;
+    font-size: 20px;
     font-weight: 500;
     color: $text-color;
 
-    transition: color 0.3s ease;
+    border: 3px solid #242424;
+
+    border-radius: 50px;
+
+    transition: background-color 0.3s ease;
 
     .material-symbols-outlined {
+      margin-top: 2px;
       font-size: 22px;
     }
 
     &:hover {
-      color: $primary-color;
+      color: #fff;
+      background-color: #242424;
     }
   }
 
   // 제품 슬라이더
   .slider {
-    grid-column: 1 / -1; // Grid 두 열 전체 차지
     position: relative;
-    min-width: 0;
+    grid-column: 1 / -1; // Grid 두 열 전체 차지
     width: 100%;
-    padding-bottom: 36px; // 스크롤바 공간
+    min-width: 0;
     overflow: hidden;
+    padding-bottom: 36px; // 스크롤바 공간
 
     .swiper-slide {
       height: auto;
@@ -447,16 +492,16 @@ main {
           border: 1px solid $text-color;
           border-radius: 50%;
 
+          transition:
+            background-color 0.3s ease,
+            color 0.3s ease,
+            border-color 0.3s ease;
+
           font-variation-settings:
             "FILL" 0,
             "wght" 500,
             "GRAD" 0,
             "opsz" 24;
-
-          transition:
-            background-color 0.3s ease,
-            color 0.3s ease,
-            border-color 0.3s ease;
         }
       }
 
@@ -483,39 +528,112 @@ main {
         }
       }
     }
-
     // ========================================
     // 제품 슬라이더 스크롤바
     // ========================================
-    .swiper-scrollbar.product-scrollbar {
+
+    // .product .slider 내부에 작성
+
+    // 하단 컨트롤 전체
+    .product-controls {
+      display: flex;
       position: absolute;
       bottom: 0;
       left: 0;
+      z-index: 10;
+      align-items: center;
+      gap: 20px;
 
       width: 100%;
-      height: 6px;
+      height: 44px;
 
-      background-color: $border-color;
-      border-radius: 100px;
-      opacity: 1;
+      // 스크롤바
+      .product-scrollbar {
+        position: relative;
+        top: auto;
+        right: auto;
+        bottom: auto;
+        left: auto;
 
-      // 드래그되는 손잡이
-      .swiper-scrollbar-drag {
-        height: 100%;
-        background-color: $text-muted;
+        flex: 1 1 auto;
+        width: auto;
+        min-width: 0;
+        height: 5px;
+
+        margin: 0;
+        background-color: $border-color;
         border-radius: 100px;
-        cursor: grab;
+        opacity: 1;
 
-        transition: background-color 0.3s ease;
-
-        &:hover {
+        // 드래그 손잡이
+        .swiper-scrollbar-drag {
+          height: 100%;
           background-color: $primary-color;
-        }
+          border-radius: 100px;
+          cursor: grab;
 
-        &:active {
-          cursor: grabbing;
+          &:active {
+            cursor: grabbing;
+          }
+        }
+      }
+
+      // 좌우 버튼 그룹
+      .product-nav {
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        gap: 12px;
+
+        button {
+          display: grid;
+          place-items: center;
+
+          width: 40px;
+          height: 40px;
+          padding: 0;
+
+          color: $text-color;
+          background: transparent;
+          border: none;
+          border-radius: 0;
+          box-shadow: none;
+          cursor: pointer;
+
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: $primary-color;
+          }
+
+          &:focus-visible {
+            outline: 2px solid $primary-color;
+            outline-offset: 3px;
+          }
+
+          &.swiper-button-disabled {
+            opacity: 0.3;
+            cursor: default;
+          }
+
+          .material-symbols-outlined {
+            font-size: 22px;
+          }
         }
       }
     }
   }
 }
+
+.main2title {
+  height: 300px;
+  h2 {
+    font-size: 48px;
+  }
+  p {
+    font-size: 24px;
+  }
+}
+// ========================================
+// 6. 메인3 프로덕트2
+// ========================================
