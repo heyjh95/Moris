@@ -1,0 +1,14 @@
+{
+  "name": "moris-site",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build:css": "sass --no-source-map --style=expanded scss/layout.scss css/layout.css",
+    "build:css:min": "sass --no-source-map --style=compressed scss/layout.scss css/layout.min.css",
+    "build": "npm run build:css && npm run build:css:min",
+    "test": "node --check js/main.js && node --test tests/*.test.mjs"
+  },
+  "devDependencies": {
+    "sass": "^1.79.0"
+  }
+}

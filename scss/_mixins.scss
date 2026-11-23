@@ -1,15 +1,16 @@
 @use "sass:list";
+
 @mixin flex-center {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 }
+
 @mixin background-cover {
   background-repeat: no-repeat;
-  background-position: 50%;
+  background-position: center;
   background-size: cover;
 }
-// 반복문
 
 @mixin long-shadow($length, $shadow-color) {
   $shadows: ();
@@ -23,13 +24,15 @@
   }
   text-shadow: $shadows;
 }
+
 @mixin ellipsis($line: 2) {
-  overflow: hidden;
   display: -webkit-box;
+  overflow: hidden;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: $line;
   line-clamp: $line;
 }
+
 @mixin button-base {
   padding: 12px 20px;
   border-radius: 5px;
