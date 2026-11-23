@@ -890,19 +890,8 @@ main {
   transition: color 0.25s ease;
 }
 
-.product2__button:hover,
-.product2__button[aria-pressed=true] {
-  color: #c91846;
-  background: transparent;
-}
-
 .product2__button[aria-pressed=true] {
   font-weight: 700;
-}
-
-.product2__button:focus-visible {
-  outline: 2px solid #c91846;
-  outline-offset: 2px;
 }
 
 .product2__button-icon {
@@ -926,18 +915,6 @@ main {
 
 .product2__content {
   min-width: 0;
-  background: transparent;
-}
-
-.product2__panel:not([hidden]) {
-  display: grid;
-  align-items: center;
-  grid-template-columns: minmax(0, 1fr) minmax(270px, 335px);
-  grid-template-rows: minmax(600px, auto);
-  gap: clamp(16px, 2vw, 32px);
-  width: 100%;
-  min-height: 600px;
-  padding: 0;
   background: transparent;
 }
 
